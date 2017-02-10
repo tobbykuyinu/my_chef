@@ -61,7 +61,6 @@ search("aws_opsworks_app").each do |app|
   end
 
   env_vars_string = env_variables.join("\n")
-  Chef::Log.info("********** The app's env is '#{env_vars_string}' **********")
 
   file "/srv/env/#{application}" do
       content <<-EOH
