@@ -5,7 +5,7 @@ search("aws_opsworks_app").each do |app|
 
   # pull docker image
   docker_image "#{app['environment']['DOCKER_IMAGE']}" do
-    tag "#{app['environment']['DOCKER_TAG']"
+    tag "#{app['environment']['DOCKER_TAG']}"
     action :pull
   end
 
