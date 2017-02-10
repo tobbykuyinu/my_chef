@@ -24,7 +24,7 @@ search("aws_opsworks_app").each do |app|
           -p #{app['environment']['NODE_PORT']}:#{app['environment']['NODE_PORT']} \
           -v /docker_logs:/var/log/applications \
           #{app['environment']['DOCKER_IMAGE']}
-      EOH
+    EOH
   end
 end
 
