@@ -31,15 +31,6 @@ bash "enable site" do
   EOH
 end
 
-# make hostname available
-bash "update hosts" do
-  cwd '/'
-  user 'root'
-  code <<-EOH
-    echo "127.0.0.1 contentservice.api.com" >> /etc/hosts
-  EOH
-end
-
 # create directory for env files
 directory "/srv/env" do
   owner 'root'

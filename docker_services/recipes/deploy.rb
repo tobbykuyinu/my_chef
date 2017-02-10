@@ -26,6 +26,15 @@ bash 'run_app' do
     EOH
 end
 
+# make hostname available
+bash "update hosts" do
+  cwd '/'
+  user 'root'
+  code <<-EOH
+    echo "127.0.0.1 contentservice.api.com" >> /etc/hosts
+  EOH
+end
+
 # restart proxy server
 execute 'Restart NGINX' do
   user 'root'
