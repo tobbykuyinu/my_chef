@@ -1,22 +1,13 @@
-#
-# Cookbook:: docker_services
-# Recipe:: default
-#
-# Copyright:: 2017, The Authors, All Rights Reserved.
+# Configuration
 
-package 'nginx'
-application = 'contentservice'
-
-docker_service 'default' do
-  action [:create, :start]
-end
-
+# login to docker repository
 docker_registry 'https://index.docker.io/v1/' do
   username 'tobbykuyinu'
   password 'nkpokiripo'
   email 'tobbykuyinu@yahoo.com'
 end
 
+# setup nginx proxy pass
 template "/etc/nginx/sites-available/#{application}" do
   source "domain_ngx_config.erb"
   owner 'root'
@@ -29,6 +20,7 @@ template "/etc/nginx/sites-available/#{application}" do
   })
 end
 
+# enable proxy pass
 bash "enable site" do
   cwd '/'
   user 'root'
@@ -37,6 +29,7 @@ bash "enable site" do
   EOH
 end
 
+# make hostname available
 bash "update hosts" do
   cwd '/'
   user 'root'
@@ -45,24 +38,28 @@ bash "update hosts" do
   EOH
 end
 
+# create directory for env files
 directory "/srv/env" do
   owner 'root'
   group 'root'
   mode '00700'
 end
 
+# create docker logs directory
 directory "/srv/docker_logs" do
   owner 'root'
   group 'root'
   mode '00700'
 end
 
+# create docker logs file for app
 file "/srv/docker_logs/#{application}" do
   owner 'root'
   group 'root'
   mode '00700'
 end
 
+# populate env for application
 file "/srv/env/#{application}" do
     content <<-EOH
 NODE_PORT=8082
@@ -89,31 +86,3 @@ QA_ANALYTICS_ID=ga:83398340
     owner 'root'
     group 'root'
 end
-
-docker_image 'tobbykuyinu/contentservice' do
-  tag 'latest'
-  action :pull
-end
-
-docker_container "#{application}" do
-  action :remove
-end
-
-bash 'run_app' do
-  cwd '/'
-  code <<-EOH
-    docker run -d \
-        --env-file=/srv/env/#{application} \
-        --name=#{application} \
-        -p 8082:8082 \
-        -v /docker_logs:/var/log/applications \
-        tobbykuyinu/contentservice
-    EOH
-end
-
-execute 'Restart NGINX' do
-  user 'root'
-  command "service nginx restart"
-end
-
-#curl -L https://www.opscode.com/chef/install.sh | bash

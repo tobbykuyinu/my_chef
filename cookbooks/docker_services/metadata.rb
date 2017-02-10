@@ -4,7 +4,7 @@ maintainer_email 'tobbykuyinu@yahoo.com'
 license 'all_rights'
 description 'Installs/Configures docker_services'
 long_description 'Installs/Configures docker_services'
-version '0.1.0'
+version '0.2.2'
 
 # The `issues_url` points to the location where issues for this cookbook are
 # tracked.  A `View Issues` link will be displayed on this cookbook's page when
@@ -18,4 +18,4 @@ version '0.1.0'
 #
 # source_url 'https://github.com/<insert_org_here>/docker_services' if respond_to?(:source_url)
 
-depends 'docker', '~> 2.0'
+depends 'docker', '~> 2.9'
