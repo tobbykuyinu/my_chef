@@ -1,5 +1,7 @@
 # Configuration
 
+application = 'contentservice'
+
 # login to docker repository
 docker_registry 'https://index.docker.io/v1/' do
   username 'tobbykuyinu'

@@ -1,5 +1,7 @@
 # Deploy
 
+application = 'contentservice'
+
 # pull docker image
 docker_image 'tobbykuyinu/contentservice' do
   tag 'latest'
