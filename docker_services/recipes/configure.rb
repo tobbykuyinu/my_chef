@@ -2,9 +2,9 @@
 
 # login to docker repository
 docker_registry 'https://index.docker.io/v1/' do
-  username 'tobbykuyinu'
-  password 'nkpokiripo'
-  email 'tobbykuyinu@yahoo.com'
+  username node['docker']['username']
+  password node['docker']['password']
+  email node['docker']['email']
 end
 
 search("aws_opsworks_app").each do |app|
